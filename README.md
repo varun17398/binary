@@ -231,7 +231,7 @@ SSE is unidirectional (server → client), which is all we need for streaming LL
 The `messages` table stores raw content so conversation context is preserved for multi-turn LLM calls. Redacting it would break the chatbot. Only the `input_preview` and `output_preview` fields in `inference_logs` are redacted, since those are the fields analysts query. The tradeoff is that PII exists in the messages table — a stricter posture would encrypt that column at rest.
 
 **Migrations on startup instead of a separate CLI**
-Running `runMigrations()` in `start()` means the app is always self-migrating. It's convenient for Docker and k8s deployments where you can't easily run a pre-job. The tradeoff is that it's dangerous in a multi-replica deployment if migrations are not idempotent — all `CREATE TABLE IF NOT EXISTS` statements here are, so it's safe.
+Running `runMigrations()` in `start()` means the app is always self-migrating. It's convenient for Docker deployments where you can't easily run a pre-job. The tradeoff is that it's dangerous in a multi-replica deployment if migrations are not idempotent — all `CREATE TABLE IF NOT EXISTS` statements here are, so it's safe.
 
 **In-memory conversation store replaced, not kept**
 The old `store/conversations.js` was deleted in favour of the DB-backed store. A fallback/in-memory mode would have made the app runnable without a database, but it would have added branching logic and hidden bugs where the two stores behaved differently.
