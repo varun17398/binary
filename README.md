@@ -95,37 +95,6 @@ This brings up PostgreSQL, the backend (with auto-migrations), and the frontend 
 
 ---
 
-### Option C — Kubernetes (self-hosted)
-
-**1. Fill in secrets**
-
-```bash
-# Edit k8s/secrets.yaml with your real API keys
-kubectl apply -f k8s/namespace.yaml
-kubectl apply -f k8s/secrets.yaml
-```
-
-**2. Deploy all services**
-
-```bash
-kubectl apply -f k8s/postgres.yaml
-kubectl apply -f k8s/backend.yaml
-kubectl apply -f k8s/frontend.yaml
-kubectl apply -f k8s/ingress.yaml
-```
-
-**3. Add a local hosts entry**
-
-```
-<your-node-ip>  binary.local
-```
-
-App is available at **http://binary.local**.
-
-> Requires an NGINX ingress controller installed on the cluster.
-
----
-
 ## Architecture Overview
 
 ```
